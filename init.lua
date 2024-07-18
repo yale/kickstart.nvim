@@ -281,10 +281,11 @@ require('lazy').setup({
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
-      require('which-key').setup()
+      local wk = require 'which-key'
+      wk.setup()
 
       -- Document existing key chains
-      require('which-key').add {
+      wk.register {
         { '<leader>c', group = '[C]ode' },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
@@ -364,6 +365,11 @@ require('lazy').setup({
             require('telescope.themes').get_dropdown(),
           },
         },
+        pickers = {
+          oldfiles = {
+            cwd_only = true,
+          },
+        },
       }
 
       -- Enable Telescope extensions if they are installed
@@ -385,7 +391,7 @@ require('lazy').setup({
 
       -- Slightly advanced example of overriding default behavior and theme
       -- vim.keymap.set('n', '<leader>/', function()
-      --   -- You can pass additional configuration to telescope to change theme, layout, etc.
+      --   -- You can pass additional configuration to Telescope to change the theme, layout, etc.
       --   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
       --     winblend = 10,
       --     previewer = false,
